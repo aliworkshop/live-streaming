@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>live · live-streaming</title>
+    <link href="/style.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <h1>Live</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/call.html">Call</a>
+        <a href="/live.html">Live</a>
+        <a href="/tv.html">TV</a>
+        <a href="/radio.html">Radio</a>
+    </nav>
+</header>
+
+<main>
+    <section id="status-section">
+        <p class="muted" id="who">checking session…</p>
+        <p class="muted" id="state"></p>
+    </section>
+
+    <section id="broadcast-section">
+        <h2>Broadcast</h2>
+        <form id="go-live-form">
+            <label>Stream title <input name="title" placeholder="my livestream"/></label>
+            <button id="go-live-btn" type="submit">Go live</button>
+            <button hidden id="stop-live-btn" type="button">Stop</button>
+        </form>
+        <video autoplay id="local-video" muted playsinline
+               style="width:100%;max-width:640px;background:black;border-radius:6px;"></video>
+        <p class="muted" id="viewer-count"></p>
+    </section>
+
+    <section id="watch-section">
+        <h2>Active streams</h2>
+        <ul id="streams"></ul>
+        <video autoplay controls hidden id="remote-video"
+               playsinline style="width:100%;max-width:640px;background:black;border-radius:6px;"></video>
+        <button hidden id="leave-btn">Stop watching</button>
+    </section>
+</main>
+
+<script src="/auth.js"></script>
+<script src="/live.js"></script>
+</body>
+</html>
