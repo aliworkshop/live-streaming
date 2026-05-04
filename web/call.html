@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>call · live-streaming</title>
+    <link href="/style.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <h1>Call</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/call.html">Call</a>
+        <a href="/live.html">Live</a>
+        <a href="/tv.html">TV</a>
+        <a href="/radio.html">Radio</a>
+    </nav>
+</header>
+
+<main>
+    <section id="status-section">
+        <p class="muted" id="who">checking session…</p>
+        <p class="muted" id="state"></p>
+    </section>
+
+    <section id="peers-section">
+        <h2>Online peers</h2>
+        <ul id="peers"></ul>
+    </section>
+
+    <section hidden id="incoming-section">
+        <h2>Incoming call</h2>
+        <p id="incoming-from"></p>
+        <button id="accept">Accept</button>
+        <button id="reject">Reject</button>
+    </section>
+
+    <section hidden id="call-section">
+        <h2>In call</h2>
+        <div class="video-grid">
+            <video autoplay id="local-video" muted playsinline></video>
+            <video autoplay id="remote-video" playsinline></video>
+        </div>
+        <button id="hangup">Hang up</button>
+    </section>
+</main>
+
+<script src="/auth.js"></script>
+<script src="/call.js"></script>
+</body>
+</html>

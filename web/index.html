@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>live-streaming</title>
+    <link href="/style.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <h1>live-streaming</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/call.html">Call</a>
+        <a href="/live.html">Live</a>
+        <a href="/tv.html">TV</a>
+        <a href="/radio.html">Radio</a>
+    </nav>
+</header>
+
+<main>
+    <section id="auth">
+        <h2>Sign up</h2>
+        <form id="signup-form">
+            <label>Username <input maxlength="32" minlength="3" name="username" required/></label>
+            <label>Display name <input name="displayName"/></label>
+            <label>Password <input minlength="8" name="password" required type="password"/></label>
+            <button type="submit">Create account</button>
+        </form>
+
+        <h2>Log in</h2>
+        <form id="login-form">
+            <label>Username <input name="username" required/></label>
+            <label>Password <input name="password" required type="password"/></label>
+            <button type="submit">Log in</button>
+        </form>
+
+        <pre id="auth-status"></pre>
+    </section>
+
+    <section hidden id="me-section">
+        <h2>Logged in</h2>
+        <pre id="me"></pre>
+        <button id="logout">Log out</button>
+    </section>
+</main>
+
+<script src="/auth.js"></script>
+</body>
+</html>

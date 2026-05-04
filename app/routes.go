@@ -1,0 +1,32 @@
+package app
+
+import (
+	"net/http"
+	"path/filepath"
+)
+
+func (a *App) RegisterRoutes() {
+	// Auth / users
+	a.mux.HandleFunc("/api/signup", a.UserModule.Signup)
+	a.mux.HandleFunc("/api/login", a.UserModule.Login)
+	a.mux.HandleFunc("/api/me", a.UserModule.AuthMiddleware(a.UserModule.Me))
+	a.mux.HandleFunc("/api/users", a.UserModule.AuthMiddleware(a.UserModule.List))
+
+	// Call (WebRTC signaling websocket)
+	a.mux.HandleFunc("/ws/call", a.CallModule.Subscribe)
+
+	// Live broadcast (WebRTC fan-out via signaling websocket)
+	a.mux.HandleFunc("/ws/live", a.LiveModule.Subscribe)
+	a.mux.HandleFunc("/api/live", a.UserModule.AuthMiddleware(a.LiveModule.List))
+
+	// 24/7 streams
+	a.mux.HandleFunc("/stream/tv.m3u8", a.StreamModule.TvPlaylist)
+	a.mux.HandleFunc("/stream/tv/", a.StreamModule.TvSegment)
+	a.mux.HandleFunc("/stream/fm.m3u8", a.StreamModule.FmPlaylist)
+	a.mux.HandleFunc("/stream/fm/", a.StreamModule.FmSegment)
+
+	// Static web client
+	webDir, _ := filepath.Abs(a.config.WebDir)
+	fs := http.FileServer(http.Dir(webDir))
+	a.mux.Handle("/", fs)
+}

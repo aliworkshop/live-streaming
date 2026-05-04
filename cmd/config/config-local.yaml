@@ -1,0 +1,32 @@
+name: live-streaming
+
+http:
+  address: ":9000"
+  gracefullyShutdownTimeout: 10s
+
+auth:
+  # Override with JWT_SECRET env var in production. Don't commit a real secret.
+  jwtSecret: "change-me-please"
+  accessExpiry: 24h
+
+stream:
+  # Root directory containing media/<channel>/<show>/index.m3u8 (multi-show
+  # mode) or media/<channel>/index.m3u8 (single-show mode).
+  mediaDir: "media"
+
+tunnel:
+  # When true, spawn cloudflared on startup so browser HTTPS is available
+  # for remote devices (required for getUserMedia camera/mic).
+  useCloudflared: true
+  # If both name and hostname are set, runs a *named* tunnel — stable URL
+  # across restarts. Otherwise falls back to a quick trycloudflare.com
+  # tunnel whose URL changes every run.
+  #
+  # One-time setup before launching the app:
+  #   cloudflared tunnel login
+  #   cloudflared tunnel create  live-streaming
+  #   cloudflared tunnel route dns live-streaming stream.example.com
+  name: ""
+  hostname: ""
+
+webDir: "web"

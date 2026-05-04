@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>tv · live-streaming</title>
+    <link href="/style.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <h1>TV — 24/7</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/call.html">Call</a>
+        <a href="/live.html">Live</a>
+        <a href="/tv.html">TV</a>
+        <a href="/radio.html">Radio</a>
+    </nav>
+</header>
+<main>
+    <section>
+        <video autoplay controls id="player" playsinline style="width:100%;background:black;border-radius:6px;"></video>
+        <p class="muted">Source: <code>/stream/tv.m3u8</code></p>
+    </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+<script data-stream="/stream/tv.m3u8" src="/player.js"></script>
+</body>
+</html>
