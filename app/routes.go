@@ -18,6 +18,11 @@ func (a *App) RegisterRoutes() {
 	// Live broadcast (WebRTC fan-out via signaling websocket)
 	a.mux.HandleFunc("/ws/live", a.LiveModule.Subscribe)
 	a.mux.HandleFunc("/api/live", a.UserModule.AuthMiddleware(a.LiveModule.List))
+	a.mux.HandleFunc("/api/live/upload", a.UserModule.AuthMiddleware(a.LiveModule.Upload))
+
+	// User-uploaded files (PDFs etc.) served from disk
+	uploadsDir, _ := filepath.Abs(a.config.Uploads.Dir)
+	a.mux.Handle("/uploads/", http.StripPrefix("/uploads/", http.FileServer(http.Dir(uploadsDir))))
 
 	// 24/7 streams
 	a.mux.HandleFunc("/stream/tv.m3u8", a.StreamModule.TvPlaylist)

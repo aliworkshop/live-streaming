@@ -18,6 +18,11 @@ type config struct {
 	WebDir string
 }
 
+type uploadsConfig struct {
+	Dir   string // root for user-uploaded files (PDFs etc.); served at /uploads/
+	MaxMB int    // per-file size limit
+}
+
 type tunnelConfig struct {
 	// UseCloudflared spawns cloudflared at startup so that browser HTTPS is
 	// available for remote devices (required for getUserMedia camera/mic).
@@ -73,6 +78,12 @@ func (c *config) applyEnvOverrides() {
 }
 
 func (c *config) applyDefaults() {
+	if c.Uploads.Dir == "" {
+		c.Uploads.Dir = "uploads"
+	}
+	if c.Uploads.MaxMB == 0 {
+		c.Uploads.MaxMB = 200
+	}
 	if c.Http.Address == "" {
 		c.Http.Address = ":9000"
 	}

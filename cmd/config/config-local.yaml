@@ -14,6 +14,27 @@ stream:
   # mode) or media/<channel>/index.m3u8 (single-show mode).
   mediaDir: "media"
 
+# Re-stream remote HLS sources through this server. Each channel is exposed
+# at /stream/<name>.m3u8 — pick names that don't collide with the on-disk
+# channels above (`tv`, `fm`). The proxy rewrites every URI in the master
+# and variant playlists so segments and sub-playlists ride through here too,
+# which means cross-origin HLS players (HLS.js) just work.
+externalChannels:
+  - name: lenz
+    url: "https://live.lenzsport.net/plus/plus.stream/playlists.m3u8"
+  # Mux's public live demo — multi-variant (1080p / 720p / 540p / 360p / 270p)
+  # low-latency HLS, advancing in real time. Good for testing the Quality
+  # dropdown in /external.html.
+  - name: mux-live
+    url: "https://stream.mux.com/v69RSHhFelSm4701snP22dYz2jICy4E4FUyk02rW4gxRM.m3u8"
+
+uploads:
+  # Where teachers' PDFs (and any future uploads) are stored on disk. Files
+  # are served back at /uploads/<uuid>.pdf. Add this directory to .gitignore
+  # if you don't want uploads tracked.
+  dir: "uploads"
+  maxMB: 200
+
 tunnel:
   # When true, spawn cloudflared on startup so browser HTTPS is available
   # for remote devices (required for getUserMedia camera/mic).

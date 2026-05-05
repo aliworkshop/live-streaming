@@ -4,7 +4,7 @@
 
 body {
     font-family: ui-sans-serif, system-ui, sans-serif;
-    max-width: 880px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
     background: #0e0f12;
@@ -95,4 +95,119 @@ pre {
 .muted {
     color: #8a8f9b;
     font-size: .9rem;
+}
+
+/* Mirror self-view — applied to <video> elements that show the user's own
+   camera, so it behaves like a normal mirror (right hand on the right). */
+.mirror {
+    transform: scaleX(-1);
+}
+
+/* Live page: video stage on top, chat below */
+.stage {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.video-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.stage video {
+    width: 100%;
+    max-height: 75vh;
+    background: black;
+    border-radius: 6px;
+    display: block;
+    object-fit: contain;
+}
+
+.video-stack > * + * {
+    margin-top: .5rem;
+}
+
+.chat-panel {
+    background: #0e0f12;
+    border: 1px solid #2a2d34;
+    border-radius: 6px;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 280px;
+    min-width: 0;
+}
+
+.chat-panel h3 {
+    margin: 0 0 .5rem;
+    font-size: .95rem;
+}
+
+.chat-panel ul {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 0 .25rem;
+}
+
+.chat-panel li {
+    padding: .25rem 0;
+    border-bottom: 1px solid #2a2d34;
+    word-wrap: break-word;
+}
+
+.chat-panel form {
+    display: flex;
+    gap: .5rem;
+    margin-top: .5rem;
+    margin-bottom: 0;
+    max-width: none;
+}
+
+.chat-panel input {
+    flex: 1;
+    min-width: 0;
+}
+
+.classroom-bar {
+    border-bottom: 1px solid #2a2d34;
+    padding-bottom: .5rem;
+    margin-bottom: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.classroom-bar ul {
+    list-style: none;
+    margin: .25rem 0 0;
+    padding: 0;
+    max-height: 96px;
+    overflow-y: auto;
+}
+
+.classroom-bar li {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    padding: .15rem 0;
+    font-size: .85rem;
+}
+
+.classroom-bar li button {
+    padding: .1rem .4rem;
+    font-size: .75rem;
+}
+
+.classroom-bar #speaker-info p {
+    margin: 0 0 .25rem;
+}
+
+@media (max-width: 720px) {
+    .chat-panel {
+        height: 240px;
+    }
 }
