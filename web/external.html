@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title>radio · live-streaming</title>
+    <title>external · live-streaming</title>
     <link href="/style.css" rel="stylesheet"/>
 </head>
 <body>
 <header>
-    <h1>Radio — 24/7</h1>
+    <h1>External stream</h1>
     <nav>
         <a href="/">Home</a>
         <a href="/call.html">Call</a>
@@ -18,13 +18,29 @@
         <a href="/radio.html">Radio</a>
     </nav>
 </header>
+
 <main>
     <section>
-        <audio autoplay controls id="player" style="width:100%;"></audio>
-        <p class="muted">Source: <code>/stream/fm.m3u8</code></p>
+        <label>
+            Channel
+            <select id="channel-select"></select>
+        </label>
+        <label>
+            Quality
+            <select id="quality-select">
+                <option value="-1">Auto</option>
+            </select>
+        </label>
+        <p class="muted" id="state"></p>
+    </section>
+
+    <section>
+        <video autoplay controls id="player" playsinline
+               style="width:100%;background:black;border-radius:6px;"></video>
     </section>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
-<script data-stream="/stream/fm.m3u8" src="/player.js"></script>
+<script src="/external.js"></script>
 </body>
 </html>

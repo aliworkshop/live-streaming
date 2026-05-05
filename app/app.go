@@ -9,6 +9,7 @@ import (
 	"github.com/aliworkshop/live-streaming/call"
 	"github.com/aliworkshop/live-streaming/live"
 	"github.com/aliworkshop/live-streaming/stream"
+	"github.com/aliworkshop/live-streaming/stream/external"
 	"github.com/aliworkshop/live-streaming/user"
 	"github.com/aliworkshop/live-streaming/user/auth"
 )
@@ -25,10 +26,11 @@ type App struct {
 	cloudflaredStop func()
 	publicURL       string
 
-	UserModule   *user.Module
-	CallModule   *call.Module
-	StreamModule *stream.Module
-	LiveModule   *live.Module
+	UserModule     *user.Module
+	CallModule     *call.Module
+	StreamModule   *stream.Module
+	LiveModule     *live.Module
+	ExternalModule *external.Module
 }
 
 func New(registry configer.Registry) *App {
@@ -51,6 +53,7 @@ func (a *App) InitModules() {
 	a.initCallModule()
 	a.initStreamModule()
 	a.initLiveModule()
+	a.initExternalModule()
 }
 
 func (a *App) panicOnErr(err error) {

@@ -10,12 +10,19 @@ import (
 const ServiceName = "live-streaming"
 
 type config struct {
-	Name   string
-	Http   httpConfig
-	Auth   authConfig
-	Stream streamConfig
-	Tunnel tunnelConfig
-	WebDir string
+	Name             string
+	Http             httpConfig
+	Auth             authConfig
+	Stream           streamConfig
+	ExternalChannels []externalChannelConfig
+	Tunnel           tunnelConfig
+	Uploads          uploadsConfig
+	WebDir           string
+}
+
+type externalChannelConfig struct {
+	Name string // exposed at /stream/<name>.m3u8 — must not collide with tv/fm
+	URL  string // upstream HLS master playlist URL
 }
 
 type uploadsConfig struct {

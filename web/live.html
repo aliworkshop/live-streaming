@@ -13,6 +13,7 @@
         <a href="/">Home</a>
         <a href="/call.html">Call</a>
         <a href="/live.html">Live</a>
+        <a href="/external.html">External</a>
         <a href="/tv.html">TV</a>
         <a href="/radio.html">Radio</a>
     </nav>
@@ -28,24 +29,80 @@
         <h2>Broadcast</h2>
         <form id="go-live-form">
             <label>Stream title <input name="title" placeholder="my livestream"/></label>
+            <label class="row">
+                <input id="screen-share-toggle" name="screen" type="checkbox"/>
+                Share screen instead of camera
+            </label>
             <button id="go-live-btn" type="submit">Go live</button>
             <button hidden id="stop-live-btn" type="button">Stop</button>
         </form>
-        <video autoplay id="local-video" muted playsinline
-               style="width:100%;max-width:640px;background:black;border-radius:6px;"></video>
-        <p class="muted" id="viewer-count"></p>
     </section>
 
     <section id="watch-section">
         <h2>Active streams</h2>
         <ul id="streams"></ul>
-        <video autoplay controls hidden id="remote-video"
-               playsinline style="width:100%;max-width:640px;background:black;border-radius:6px;"></video>
-        <button hidden id="leave-btn">Stop watching</button>
+    </section>
+
+    <section hidden id="stage-section">
+        <div class="stage">
+            <div class="video-stack">
+                <video autoplay hidden id="local-video" muted playsinline></video>
+                <video autoplay hidden id="remote-video" playsinline></video>
+                <p class="muted" id="viewer-count"></p>
+                <button hidden id="leave-btn" type="button">Stop watching</button>
+            </div>
+            <aside class="chat-panel">
+                <div class="classroom-bar">
+                    <!-- Viewer side -->
+                    <div hidden id="hand-controls">
+                        <button id="raise-hand-btn" type="button">✋ Raise hand</button>
+                    </div>
+                    <!-- Broadcaster side -->
+                    <div hidden id="hand-queue-section">
+                        <div class="muted">Hand queue</div>
+                        <ul id="hand-queue"></ul>
+                    </div>
+                    <!-- Active speaker (visible to everyone) -->
+                    <div hidden id="speaker-info">
+                        <p>🎤 <strong id="speaker-name"></strong> speaking</p>
+                        <video autoplay hidden id="speaker-pip" playsinline
+                               style="width:100%;background:black;border-radius:4px;"></video>
+                        <button hidden id="revoke-speaker-btn" type="button">Revoke</button>
+                    </div>
+                </div>
+                <h3>Chat</h3>
+                <ul id="chat-list"></ul>
+                <form id="chat-form">
+                    <input autocomplete="off" id="chat-input" placeholder="say something…"/>
+                    <button type="submit">Send</button>
+                </form>
+            </aside>
+        </div>
+    </section>
+
+    <section hidden id="slide-section">
+        <h2>Slides</h2>
+        <div hidden id="slide-controls">
+            <input accept="application/pdf" id="slide-file" type="file"/>
+            <button id="slide-prev" type="button">◀ prev</button>
+            <span class="muted" id="slide-page-info">– / –</span>
+            <button id="slide-next" type="button">next ▶</button>
+        </div>
+        <canvas id="slide-canvas" style="width:100%;max-width:800px;background:white;border-radius:6px;"></canvas>
     </section>
 </main>
 
 <script src="/auth.js"></script>
+<!-- pdf.js v3 ships UMD; v4+ is ESM-only and won't expose pdfjsLib via a classic <script>. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+    if (window.pdfjsLib) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    } else {
+        console.error("pdf.js failed to load from CDN");
+    }
+</script>
 <script src="/live.js"></script>
 </body>
 </html>

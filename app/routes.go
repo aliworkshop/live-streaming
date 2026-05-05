@@ -30,6 +30,15 @@ func (a *App) RegisterRoutes() {
 	a.mux.HandleFunc("/stream/fm.m3u8", a.StreamModule.FmPlaylist)
 	a.mux.HandleFunc("/stream/fm/", a.StreamModule.FmSegment)
 
+	// External HLS proxy (one master playlist + opaque-token resource path
+	// per channel; see stream/external/proxy.go).
+	a.mux.HandleFunc("/api/external", a.ExternalModule.List)
+	for _, ch := range a.config.ExternalChannels {
+		name := ch.Name
+		a.mux.HandleFunc("/stream/"+name+".m3u8", a.ExternalModule.Playlist(name))
+		a.mux.HandleFunc("/stream/"+name+"/", a.ExternalModule.Resource(name))
+	}
+
 	// Static web client
 	webDir, _ := filepath.Abs(a.config.WebDir)
 	fs := http.FileServer(http.Dir(webDir))
