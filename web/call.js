@@ -56,6 +56,7 @@
         if (localStream) return localStream;
         localStream = await navigator.mediaDevices.getUserMedia({audio: true, video: true});
         localVideo.srcObject = localStream;
+        localVideo.classList.add("mirror");
         return localStream;
     }
 
@@ -127,6 +128,7 @@
             localStream = null;
             localVideo.srcObject = null;
         }
+        localVideo.classList.remove("mirror");
         remoteVideo.srcObject = null;
         callSection.hidden = true;
         incomingSection.hidden = true;
