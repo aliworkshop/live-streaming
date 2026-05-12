@@ -32,7 +32,12 @@ func (a *App) initLiveModule() {
 func (a *App) initExternalModule() {
 	chs := make([]external.Channel, 0, len(a.config.ExternalChannels))
 	for _, c := range a.config.ExternalChannels {
-		chs = append(chs, external.Channel{Name: c.Name, URL: c.URL})
+		chs = append(chs, external.Channel{
+			Name: c.Name,
+			URL:  c.URL,
+			Kind: external.ChannelKind(c.Kind),
+			Logo: c.Logo,
+		})
 	}
 	a.ExternalModule = external.New(a.logger, chs)
 }

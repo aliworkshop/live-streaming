@@ -22,7 +22,9 @@ type config struct {
 
 type externalChannelConfig struct {
 	Name string // exposed at /stream/<name>.m3u8 — must not collide with tv/fm
-	URL  string // upstream HLS master playlist URL
+	URL  string // upstream URL (HLS master, or a youtube.com/watch URL when kind=youtube)
+	Kind string // "hls" (default) or "youtube"; YouTube channels need yt-dlp on PATH
+	Logo string // optional image URL shown as a corner overlay on the player
 }
 
 type uploadsConfig struct {

@@ -103,6 +103,44 @@ pre {
     transform: scaleX(-1);
 }
 
+/* External-page player. The wrapper is the positioning context for the
+   logo overlay; both the <video> and the <img> are absolutely positioned
+   inside it so the logo can't end up next to the video — only on top of
+   it — regardless of intrinsic video size or aspect ratio. */
+.player-wrap {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* keeps the frame stable before metadata loads */
+    background: black;
+    border-radius: 6px;
+    overflow: hidden;
+    isolation: isolate; /* new stacking context, keeps z-index local */
+}
+
+.player-wrap > video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 0;
+}
+
+.player-wrap > .player-logo {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+    max-height: 56px;
+    max-width: 30%;
+    height: auto;
+    width: auto;
+    opacity: .9;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .7));
+    z-index: 1;
+}
+
 /* Live page: video stage on top, chat below */
 .stage {
     display: flex;

@@ -22,11 +22,28 @@ stream:
 externalChannels:
   - name: lenz
     url: "https://live.lenzsport.net/plus/plus.stream/playlists.m3u8"
-  # Mux's public live demo — multi-variant (1080p / 720p / 540p / 360p / 270p)
-  # low-latency HLS, advancing in real time. Good for testing the Quality
-  # dropdown in /external.html.
+  # Mux test live — 5 variants, 270p..1080p, low-latency HLS.
   - name: mux-live
     url: "https://stream.mux.com/v69RSHhFelSm4701snP22dYz2jICy4E4FUyk02rW4gxRM.m3u8"
+  # Red Bull TV 24/7 — 6 variants, 180p..1080p, action sports + lifestyle.
+  - name: redbull
+    url: "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"
+  # TRT World 24/7 English news — 5 variants, 360p..1440p (2K).
+  - name: trt-world
+    url: "https://tv-trtworld.medya.trt.com.tr/master.m3u8"
+  - name: dw-english
+    url: "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8"
+  - name: france24-en
+    url: "https://static.france24.com/live/F24_EN_HI_HLS/live_web.m3u8"
+  - name: nasa-tv
+    url: "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8"
+  # YouTube live — kind:youtube tells the proxy to shell out to yt-dlp at
+  # request time and cache the resolved HLS master for 5 minutes. Requires
+  # `yt-dlp` on PATH (`brew install yt-dlp`).
+  - name: yt
+    kind: youtube
+    url: "https://www.youtube.com/watch?v=EmmAVsyzd1s
+    "
 
 uploads:
   # Where teachers' PDFs (and any future uploads) are stored on disk. Files
